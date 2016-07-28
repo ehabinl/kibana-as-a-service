@@ -1,0 +1,70 @@
+#!/bin/bash
+#
+#       /etc/init.d/kibana
+#
+
+#Declarations
+USER="kibana"
+PROG="kibana"
+PROG_LOCATION="/usr/share/kibana/kibana-5.0.0-alpha4-linux-x64/bin/kibana"
+
+PID_FILE="/var/run/${PROG}.pid"
+LOG_DIR="/var/log/kibana/"
+LOG_FILE="${LOG_DIR}/kibana.log"
+
+SU="sudo -u $USER bash -c "
+
+KIBANA_EXEC="$SU '$PROG_LOCATION'"
+
+chown ${USER}:${USER} ${LOG_DIR}
+
+# Execute init.d functions
+. /etc/rc.d/init.d/functions
+
+
+case "$1" in
+    start)
+
+        # Add kibana user if not exist
+        id -u $USER &>/dev/null || useradd $USER 
+              
+        mkdir -p $LOG_DIR
+
+        if [ -a $PID_FILE ] ; then
+		        echo "$PID_FILE already exists"
+        else
+		        touch $PID_FILE
+                echo "Starting Kibana..."
+                $KIBANA_EXEC 1>"$LOG_FILE" 2>&1 &
+                echo $! > "$PID_FILE"
+                echo "Kibana started with pid $!"
+        fi
+        ;;
+        
+    stop)
+    
+        echo -n "Stopping Kibana: "
+		
+        if [ -a $PID_FILE ] ; then
+		        kill -9 `cat $PID_FILE`
+				rm $PID_FILE
+                echo "OK"
+        else
+		        echo "There is no PID..."
+        fi
+		;;
+        
+    status)
+    
+        status -p $PID_FILE kibana
+        exit $?
+        ;;
+        
+    *)
+    
+    echo "Usage: `basename $0` start|stop|status"
+    exit 1
+    
+esac
+
+exit 0
