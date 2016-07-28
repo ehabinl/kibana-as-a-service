@@ -31,9 +31,9 @@ case "$1" in
         mkdir -p $LOG_DIR
 
         if [ -a $PID_FILE ] ; then
-		        echo "$PID_FILE already exists"
+                echo "$PID_FILE already exists"
         else
-		        touch $PID_FILE
+                touch $PID_FILE
                 echo "Starting Kibana..."
                 $KIBANA_EXEC 1>"$LOG_FILE" 2>&1 &
                 echo $! > "$PID_FILE"
@@ -44,15 +44,15 @@ case "$1" in
     stop)
     
         echo -n "Stopping Kibana: "
-		
+        
         if [ -a $PID_FILE ] ; then
-		        kill -9 `cat $PID_FILE`
-				rm $PID_FILE
+                kill -9 `cat $PID_FILE`
+                rm $PID_FILE
                 echo "OK"
         else
-		        echo "There is no PID..."
+                echo "There is no PID..."
         fi
-		;;
+        ;;
         
     status)
     

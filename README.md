@@ -1,7 +1,7 @@
 Kibana init script 
 =============================
 
-An init.d shell script that provide the start, stop and status commands.
+An init.d shell script that provides start, stop and status commands.
 
 
 Getting started
@@ -35,8 +35,8 @@ Tells you whether the app is running.
 Logging
 -------
 
-By default, standard output goes to /var/log/kibana.log. 
-Change the variables `LOG_DIR` and `LOG_FILE` if you want a custom location.
+*By default, standard output goes to /var/log/kibana.log. 
+*Change the variables `LOG_DIR` and `LOG_FILE` if you want a custom location.
 
 License
 -------
