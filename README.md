@@ -35,8 +35,8 @@ Tells you whether the app is running.
 Logging
 -------
 
-*By default, standard output goes to /var/log/kibana.log. 
-*Change the variables `LOG_DIR` and `LOG_FILE` if you want a custom location.
+* By default, standard output goes to /var/log/kibana.log. 
+* Change the variables `LOG_DIR` and `LOG_FILE` if you want a custom location.
 
 License
 -------
